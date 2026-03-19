@@ -3,9 +3,7 @@ from scipy.special import legendre
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# =========================
-# 1. Կառուցում ենք մատրիցը
-# =========================
+
 def build_legendre_matrix(N):
     x = np.linspace(-1, 1, N)
     L = np.zeros((N, N), dtype=float)
@@ -18,9 +16,7 @@ def build_legendre_matrix(N):
     return x, L
 
 
-# =========================
-# 2. Heatmap
-# =========================
+
 def plot_matrix(N):
     x, L = build_legendre_matrix(N)
 
@@ -42,9 +38,7 @@ def plot_matrix(N):
     print(f'✓ Saved: {filename}')
 
 
-# =========================
-# 3. Պոլինոմների գրաֆիկ
-# =========================
+
 def plot_polynomials(N):
     x_fine = np.linspace(-1, 1, 200)
 
@@ -70,9 +64,7 @@ def plot_polynomials(N):
     print(f'✓ Saved: {filename}')
 
 
-# =========================
-# 4. Կոդավորում
-# =========================
+
 def encode_text(text):
     # Տեքստ → ASCII
     m = np.array([ord(ch) for ch in text], dtype=float)
@@ -87,38 +79,33 @@ def encode_text(text):
     return m, c, L
 
 
-# =========================
-# 5. Վերծանում
-# =========================
+
 def decode_text(c, L):
-    # Հակադարձ մատրից
+    
     L_inv = np.linalg.inv(L)
 
     # Վերականգնում
     m_rec = L_inv @ c
 
-    # Կլորացում → սիմվոլներ
+    
     m_rec = np.round(m_rec).astype(int)
     text_rec = ''.join(chr(val) for val in m_rec)
 
     return text_rec
 
 
-# =========================
-# 6. Գործարկում
-# =========================
 
-# Գրաֆիկներ
+
 for N in [5, 8, 12]:
     plot_matrix(N)
     plot_polynomials(N)
 
-# Տեքստ
+
 text = "STUDENT-DEMO"
 
 print("\nՍկզբնական տեքստ:", text)
 
-# Կոդավորում
+
 m, c, L = encode_text(text)
 
 print("\nASCII վեկտոր m:")
@@ -127,7 +114,7 @@ print(m)
 print("\nԿոդավորված վեկտոր c = L·m:")
 print(c)
 
-# Վերծանում
+
 decoded_text = decode_text(c, L)
 
 print("\nՎերականգնված տեքստ:")
